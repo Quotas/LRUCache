@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace LUSIDLRUCache
@@ -16,17 +17,22 @@ namespace LUSIDLRUCache
         /// <summary>Instance variable <c>capacity</c> is the max number of values the cache can hold. </summary>
         private readonly int capacity; //Once we set the size of the cache dont set it again
         private readonly ConcurrentDictionary<TKey, LinkedListNode<CacheItem>> dict;
+        private readonly string name;
         private readonly LinkedList<CacheItem> data = new LinkedList<CacheItem>();
         private readonly ReaderWriterLockSlim rwLock = new ReaderWriterLockSlim();
 
+        public Action<TValue> removedCallBack;
 
-        public LRUCache(int concurrencyLevel, int capacity = 100)
+        public LRUCache(string name, int concurrencyLevel, int capacity = 100)
         {
-
+            this.name = name;
             this.capacity = capacity;
             this.dict = new ConcurrentDictionary<TKey, LinkedListNode<CacheItem>>(concurrencyLevel, this.capacity + 1);
 
         }
+
+        public string Name { get { return this.name; } }
+
 
         public int Count
         {
@@ -64,8 +70,7 @@ namespace LUSIDLRUCache
 
         public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
-
-
+            
             if (this.TryGet(key, out var value))
             {
                 return value;
@@ -94,8 +99,7 @@ namespace LUSIDLRUCache
                 if (first != null)
                 {
                     dict.TryRemove(first.Value.Key, out var removed);
-
-
+                    removedCallBack(first.Value.Value);
                 }
 
                 return node.Value.Value;
