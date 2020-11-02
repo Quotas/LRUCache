@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LUSIDTechnicalTest")]
+[assembly: AssemblyTitle("LUSIDLRUCacheTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LUSIDTechnicalTest")]
+[assembly: AssemblyProduct("LUSIDLRUCacheTests")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6941bbd1-0368-4873-855a-626b54c2b20c")]
+[assembly: Guid("29b39dff-8593-4d8a-987f-c795c884ba2a")]
 
 // Version information for an assembly consists of the following four values:
 //
